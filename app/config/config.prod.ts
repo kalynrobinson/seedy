@@ -7,4 +7,5 @@
  */
 export default {
   API_URL: "CHANGEME",
+  GRAPHQL_API_URL: "CHANGEME/graphql",
 }
