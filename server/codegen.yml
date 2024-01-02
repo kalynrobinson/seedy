@@ -1,0 +1,23 @@
+overwrite: true
+schema: "http://localhost:3000/graphql"
+generates:
+  src/libraries/graphql-types/graphql.ts:
+    plugins:
+      - add:
+          content:
+            - "export namespace GraphQL {"
+      - add:
+          placement: "append"
+          content: "}"
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-resolvers"
+    config:
+      scalars:
+        UUID: string
+        ObjectID: string
+      contextType: "@server/types#AppContext"
+      noSchemaStitching: true
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

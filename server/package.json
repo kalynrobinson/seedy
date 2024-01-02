@@ -3,17 +3,111 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node src/index.ts",
+    "dev": "PORT=3000 nodemon src/index.ts",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "watch:codegen": "yarn codegen --watch",
+    "prisma": "prisma generate",
+    "migrate:up": "knex migrate:up",
+    "migrate:latest": "knex migrate:latest",
+    "migrate:down": "knex migrate:down",
+    "migrate:rollback": "knex migrate:rollback",
+    "seed": "knex seed:run"
   },
   "dependencies": {
+    "@apollo/server": "^4.9.5",
+    "@graphql-tools/schema": "^10.0.2",
     "@prisma/client": "3.8.1",
-    "apollo-server": "^2.19.0",
+    "@types/knex": "^0.16.1",
+    "@types/uuid": "^9.0.7",
     "bcryptjs": "2.4.3",
-    "jsonwebtoken": "8.5.1"
+    "express": "^4.18.2",
+    "graphql-tag": "^2.12.6",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "8.5.1",
+    "knex": "^3.1.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "@graphql-codegen/add": "^5.0.0",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/fragment-matcher": "^5.0.0",
+    "@graphql-codegen/introspection": "^4.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-graphql-files-modules": "^3.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@graphql-codegen/typescript-resolvers": "^4.0.1",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/validator": "^13.11.7",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
     "nodemon": "^2.0.6",
-    "prisma": "3.8.1"
+    "prisma": "3.8.1",
+    "sqlite3": "^5.1.7-rc.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "validator": "^13.11.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended",
+      "plugin:react-native/all",
+      "standard",
+      "prettier"
+    ],
+    "plugins": [
+      "@typescript-eslint",
+      "react",
+      "reactotron"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "settings": {
+      "react": {
+        "pragma": "React",
+        "version": "detect"
+      }
+    },
+    "rules": {
+      "@typescript-eslint/ban-ts-ignore": 0,
+      "@typescript-eslint/ban-ts-comment": 0,
+      "@typescript-eslint/explicit-function-return-type": 0,
+      "@typescript-eslint/explicit-member-accessibility": 0,
+      "@typescript-eslint/explicit-module-boundary-types": 0,
+      "@typescript-eslint/indent": 0,
+      "@typescript-eslint/member-delimiter-style": 0,
+      "@typescript-eslint/no-empty-interface": 0,
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-object-literal-type-assertion": 0,
+      "@typescript-eslint/no-var-requires": 0,
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_"
+        }
+      ],
+      "comma-dangle": 0,
+      "multiline-ternary": 0,
+      "no-undef": 0,
+      "no-unused-vars": 0,
+      "no-use-before-define": 0,
+      "no-global-assign": 0,
+      "quotes": 0,
+      "react-native/no-raw-text": 0,
+      "react/no-unescaped-entities": 0,
+      "react/prop-types": 0,
+      "space-before-function-paren": 0,
+      "reactotron/no-tron-in-production": "error"
+    }
   }
 }
