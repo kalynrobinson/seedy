@@ -1,0 +1,34 @@
+fragment Session on Session {
+  id
+  method
+  notes
+  amount
+  potency
+  strain
+  vibes {
+    id
+    name
+    description
+    asset
+  }
+}
+
+query getSessions {
+  sessions {
+    sessions {
+      ...Session
+    }
+  }
+}
+
+mutation createSession($input: CreateSessionInput!) {
+  createSession(input: $input) {
+    session {
+      ...Session
+    }
+  }
+}
+
+mutation deleteSession($input: DeleteSessionInput!) {
+  deleteSession(input: $input)
+}

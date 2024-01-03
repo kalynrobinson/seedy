@@ -119,6 +119,12 @@ const en = {
         "No favorites have been added yet. Tap the heart on an episode to add it to your favorites!",
     },
   },
+
+  screens: {
+    diary: {
+      title: "Diary",
+    },
+  },
 }
 
 export default en

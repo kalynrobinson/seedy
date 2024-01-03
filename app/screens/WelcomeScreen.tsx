@@ -8,6 +8,7 @@ import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { useGetSessionsQuery } from "app/graphql"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
@@ -21,7 +22,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
   } = useStores()
 
   function goNext() {
-    navigation.navigate("Demo", { screen: "DemoShowroom", params: {} })
+    navigation.navigate("Diary")
   }
 
   useHeader(

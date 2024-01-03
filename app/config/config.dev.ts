@@ -6,6 +6,6 @@
  * https://reactnative.dev/docs/security#storing-sensitive-info
  */
 export default {
-  API_URL: "https://api.rss2json.com/v1/",
-  GRAPHQL_API_URL: "https://api.rss2json.com/v1/graphql",
+  API_URL: "https://api.rss2json.com/v1",
+  GRAPHQL_API_URL: "http://localhost:3000/graphql",
 }

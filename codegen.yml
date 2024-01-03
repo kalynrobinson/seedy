@@ -1,0 +1,25 @@
+overwrite: true
+schema: "http://localhost:3000/graphql"
+documents: "app/**/*.graphql"
+generates:
+  app/graphql/__generated__/graphql.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      avoidOptionals:
+        object: false
+        inputValue: false
+        field: true
+      scalars:
+        DateTime: string
+        UUID: string
+        ObjectID: string
+      withComponent: false
+      withHOC: false
+      withHooks: true
+      withRefetchFn: true
+  app/graphql/__generated__/introspectionTypes.tsx:
+    plugins:
+      - "fragment-matcher"

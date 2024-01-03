@@ -1,6 +1,8 @@
 import { observer } from "mobx-react-lite"
 import React, { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react"
 import { TextInput, TextStyle, ViewStyle } from "react-native"
+
+import { useLoginMutation } from "app/graphql"
 import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components"
 import { useStores } from "../models"
 import { AppStackScreenProps } from "../navigators"
@@ -19,13 +21,23 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
     authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
   } = useStores()
 
-  useEffect(() => {
-    // Here is where you could fetch credentials from keychain or storage
-    // and pre-fill the form fields.
-    setAuthEmail("ignite@infinite.red")
-    setAuthPassword("ign1teIsAwes0m3")
+  const [mutate] = useLoginMutation({
+    variables: {
+      input: {
+        email: authEmail,
+        password: authPassword,
+      },
+    },
+    onCompleted: (data) => {
+      setAuthToken(data.login?.token ?? undefined)
+    },
+  })
 
-    // Return a "cleanup" function that React will run when the component unmounts
+  useEffect(() => {
+    // @TODO Prefill from keychain or storage
+    setAuthEmail("admin@test.com")
+    setAuthPassword("password")
+
     return () => {
       setAuthPassword("")
       setAuthEmail("")
@@ -34,20 +46,24 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
 
   const error = isSubmitted ? validationError : ""
 
-  function login() {
+  async function login() {
     setIsSubmitted(true)
     setAttemptsCount(attemptsCount + 1)
 
-    if (validationError) return
+    if (validationError) {
+      return
+    }
 
-    // Make a request to your server to get an authentication token.
-    // If successful, reset the fields and set the token.
+    try {
+      await mutate()
+
+      setAuthPassword("")
+      setAuthEmail("")
+    } catch (err) {
+      console.log(err)
+    }
+
     setIsSubmitted(false)
-    setAuthPassword("")
-    setAuthEmail("")
-
-    // We'll mock this with a fake token.
-    setAuthToken(String(Date.now()))
   }
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
