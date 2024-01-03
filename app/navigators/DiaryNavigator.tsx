@@ -5,19 +5,22 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps } from "@react-navigation/native"
 import { AppStackScreenProps, AppStackParamList } from "./AppNavigator"
 import { DemoTabParamList } from "./DemoNavigator"
+import { DiaryScreen } from "app/screens/diary"
 
 export type DiaryNavigatorParamList = {
-  Demo: undefined
+  Diary: undefined
   DiaryEntry: undefined
 }
 
-const Stack = createNativeStackNavigator<DiaryNavigatorParamList>()
+const DiaryStack = createNativeStackNavigator<DiaryNavigatorParamList>()
+
 export const DiaryNavigator = () => {
   return (
-    <Stack.Navigator
+    <DiaryStack.Navigator
       screenOptions={{ cardStyle: { backgroundColor: "transparent" }, headerShown: false }}
     >
-      <Stack.Screen name="DiaryEntry" component={DiaryEntryScreen} />
-    </Stack.Navigator>
+      {/* <Stack.Screen name="DiaryEntry" component={DiaryEntryScreen} /> */}
+      <DiaryStack.Screen name="Diary" component={DiaryScreen} />
+    </DiaryStack.Navigator>
   )
 }
